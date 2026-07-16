@@ -1,0 +1,17 @@
+# $Id: local.rules,v 1.11 2004/07/23 20:15:44 bmc Exp $
+# ----------------
+# LOCAL RULES
+# ----------------
+# This file intentionally does not come with signatures.  Put your local
+# additions here.
+alert icmp any any -> $HOME_NET any (msg:"ICMP Ping détecté"; sid:1000001; rev:1;)
+alert tcp any any -> $HOME_NET 80 (msg:"Accès HTTP détecté"; sid:1000002; rev:1;)
+alert tcp any any -> $HOME_NET any ( msg:"TCP connection detected";sid:1001001;rev:1;)
+alert udp any any -> $HOME_NET any (msg:"UDP traffic detected";sid:1001002; rev:1;)
+alert tcp any any -> $HOME_NET any (msg:"Possible TCP port scan";flags:S;threshold:type both, track by_src, count 20, seconds 10;sid:1001004;rev:1;)
+alert tcp any any -> $HOME_NET 22 ( msg:"SSH connection";sid:1001005;rev:1;)
+alert tcp any any -> $HOME_NET 80 (msg:"HTTP connection";sid:1001006;rev:1;)
+alert tcp any any -> $HOME_NET 443 (msg:"HTTPS connection"; sid:100100;  rev:1;)
+alert udp any any -> any 53 ( msg:"DNS query"; sid:1001008; rev:1;)
+alert udp any 68 -> any 67 ( msg:"DHCP request"; sid:1001009;rev:1;)
+alert tcp any any -> $HOME_NET 21 (msg:"FTP connection";sid:1001010;rev:1;)
